@@ -443,11 +443,16 @@ namespace FancyZonesUtils
 
     bool IsCandidateForZoning(HWND window, const std::vector<std::wstring>& excludedApps) noexcept
     {
-        auto zonable = IsStandardWindow(window) && HasNoVisibleOwner(window);
-        if (!zonable)
-        {
-            return false;
-        }
+        // Restore ability to rezone absolutely any window - may cause some strange behavior with auto-snap.
+        //      You can delete/comment the next line if this concerns you.
+        return true;
+        
+        // Disable detection of window type
+//        auto zonable = IsStandardWindow(window) && HasNoVisibleOwner(window);
+//        if (!zonable)
+//        {
+//            return false;
+//        }
 
         return IsZonableByProcessPath(get_process_path(window), excludedApps);
     }
